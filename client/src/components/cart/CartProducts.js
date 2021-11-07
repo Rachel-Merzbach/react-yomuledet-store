@@ -42,9 +42,8 @@ export default function CartProducts(props) {
     const [sumDiscount, setSumDiscount] = useState(0)
     useEffect(() => {
         getUserProductsList().then(res => {
-            console.log()
             setProducts(res)
-            getPayment().then(res => { console.log(res); setPrice(res[0]); setSumDiscount(res[1]) })
+            getPayment().then(res => { setPrice(res[0]); setSumDiscount(res[1]) })
         })
     }, [props.reload])
 
@@ -61,14 +60,14 @@ export default function CartProducts(props) {
     }
 
 
-
+    console.log(products.length)
     return (
 
         <div className="cart" >
 
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
-                    {products ? <TableHead>
+                    {products.length ? <TableHead>
                         <TableRow>
                             <TableCell align="right">שם המוצר</TableCell>
                             <TableCell align="right">תיאור</TableCell>

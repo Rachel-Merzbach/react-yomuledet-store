@@ -114,7 +114,7 @@ export default (props) => {
                         </div>
 
 
-                        <Button variant="contained" className={classes.submitButton} type="submit" id="contact" color="pink">שינוי הפרטים</Button>
+                        <Button variant="contained" className={classes.submitButton} type="submit" id="contact" color="default">שינוי הפרטים</Button>
                         <p id="success">{statusValues.message}</p>
 
 
