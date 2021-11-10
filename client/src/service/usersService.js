@@ -29,7 +29,6 @@ export function userPassword (currentEmail, userEmail) {
 
 
 export function addUser(newUser) {
-    console.log(newUser)
     return fetch(`${USERS_URL}/create`, {
         headers: API_HEADERS,
         method: "POST",
@@ -52,7 +51,6 @@ export function isManager () {
 }
 
 export function updateUser (newUser) {
-    console.log(newUser)
     return fetch(`${USERS_URL}/update?id=${localStorage.getItem("userId")}`, {
         headers: API_HEADERS,
         method: "PUT",

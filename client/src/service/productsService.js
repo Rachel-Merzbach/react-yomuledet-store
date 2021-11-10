@@ -1,5 +1,6 @@
-const API_URL = "http://localhost:8080/api/product";
 import db from './db.json'
+const API_URL = "http://localhost:8080/api/product";
+
 const API_HEADERS = {
     "Content-Type": "application/json",
     Accept: "application/json"
@@ -11,23 +12,22 @@ export function getProductsList() {
 }
 
 
+function getFields(input, field) {
+    var output = [];
+    for (var i=0; i < input.length ; ++i)
+        output.push(input[i][field]);
+    return output;
+}
+
+
 export function getProductsByIds(products) {
-    let detailsProducts = []
-    products.map( p => {
-        return fetch(`${API_URL}/find?_id=${p.productId}`)
-        .then(res => res.json())
-        .then (res => {detailsProducts.push(res); return res})
-        // .then(() => detailsProducts)
-    })
-    // .then(
-    //     () => detailsProducts
-    // )
-    return detailsProducts
-    // return fetch(`${API_URL}/find?${products.map(p => "id=" + p.productId).join("&")}`)
-    //     .then((res) => res.json()
-    //         .then((products) => {
-    //             return products
-    //         }));
+    var ids = getFields(products, "productId");
+    return fetch(`${API_URL}/allids`, {
+        method: "POST",
+        headers: API_HEADERS,
+        body: JSON.stringify({"ids": ids})
+    }).then((res) => res.json())
+    .then(res => res)
 }
 
 
@@ -41,7 +41,6 @@ export function removeProduct(id, setReload) {
 }
 
 export function addProductToCatalog(newProduct) {
-    console.log(newProduct)
     return fetch(`${API_URL}/create`, {
         headers: API_HEADERS,
         method: "POST",
@@ -74,3 +73,4 @@ export function insertAllProductsToDB () {
         addProductToCatalog(product)
     })
 }
+

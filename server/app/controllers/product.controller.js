@@ -33,7 +33,7 @@ exports.create = (req, res) => {
 
 //return the whole products in db
 exports.findAll = (req, res) => {
-    Product.find({userId: req.query.userId})
+    Product.find()
         .then(products => {
             res.send(products);
         }).catch(err => {
@@ -43,10 +43,23 @@ exports.findAll = (req, res) => {
         });
 };
 
+//return the whole products in db
+exports.findByIds = (req, res) => {
+    console.log(req.body.ids)
+    Product.find({_id: req.body.ids})
+        .then(products => {
+            console.log(products)
+            res.send(products);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "some error occurred while retrieving product."
+            });
+        });
+};
 
 //return product details by id
 exports.findOne = (req, res) => {
-    console.log(req.query)
+    // console.log(req.query)
     Product.findById(req.query._id)
         .then(note => {
             if (!note) {
@@ -54,7 +67,7 @@ exports.findOne = (req, res) => {
                     message: "product not found"
                 });
             }
-            console.log(note)
+            // console.log(note)
             res.send(note);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
@@ -72,7 +85,7 @@ exports.findOne = (req, res) => {
 
 //update product by id
 exports.update = (req, res) => {
-    console.log(req.query)
+    // console.log(req.query)
     Product.findByIdAndUpdate(req.query.id, {
         sale: req.body.sale,
     }, { new: true })

@@ -6,10 +6,12 @@ import React from "react"
 import phone from './phone2.gif'
 import Footer from "./Footer"
 import logo from './logo192.png'
+import AlertDialogSlide from '../cart/order'
 
 export default () => {
         return (
             <div style={{ justifyContent: "center" }}>
+                {localStorage.getItem("order") && <AlertDialogSlide />}
                 <div>
                     <p className="textTitle">חולמים על מסיבה מהאגדות?</p>
                     <div >
@@ -23,11 +25,11 @@ export default () => {
                         <br/>
                         שנועדו במיוחד עבור מסיבת יומולדת נהדרת עבור הילדים שלכם!
                         <br/>
-                         כאן תוכלו לקבל עד אליכם הביתה אביזרים ואטרקציות
+                        כאן תוכלו לקבל עד אליכם הביתה אביזרים ואטרקציות
                         <br/>
-                         שיעשו את היומולדת שאתם חוגגים
+                        שיהפכו את חגיגת היומולדת שלכם
                         <br/>
-                        לוואו אמיתי
+                        לוואו אמיתי 🤩
                     </p>
                 </div>
                 <Footer/>

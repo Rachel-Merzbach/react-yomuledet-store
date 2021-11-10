@@ -94,22 +94,24 @@ export default (props) => {
 
     const [manager, setManager] = useState(false)
 
-    const [enabled, setEnabled] = useState(true);
-
-    // const isProductUser = (prodcutId) => {
-    //     return isProductExist(prodcutId)
-    //         .then(res => {setEnabled(!res); console.log(res)})
-    // }
-    useEffect(() => {
-        isProductExist(props.product._id).then(res => {
-            setEnabled(!res);
-        })
-    }, [props.reload])
-
-
+    const [enabled, setEnabled] = useState(false);
 
     isManager().then(res => setManager(res))
     const classes = useStyles();
+
+    
+    const isProductUser = (prodcutId) => {
+        return isProductExist(prodcutId)
+            .then(res => setEnabled(!res))
+    }
+
+    
+
+    useEffect(() => {
+        isProductUser(props.product._id)
+    }, [])
+
+
 
     const add = () => {
         addProduct({
@@ -134,7 +136,6 @@ export default (props) => {
         setOpen(1);
       };
 
-
     const priceAfterSale = parseFloat(props.product.price) - parseFloat(props.product.sale) * parseFloat(props.product.price) / 100
 
     return (
@@ -157,7 +158,7 @@ export default (props) => {
                         הסרת הנחה
                     </Fab>}
 
-
+                    
 
 
                 <CardActionArea className="rootCard">
@@ -167,7 +168,6 @@ export default (props) => {
                         className={classes.media}
                         image={props.product.picture}
                     />
-
                     <CardContent>
                         <Typography className={classes.productName} gutterBottom variant="h5" component="h2">
                             {props.product.name}
@@ -175,6 +175,7 @@ export default (props) => {
                         <Typography className={classes.productDescription} variant="body2" color="textSecondary" component="p">
                             {props.product.description}
                         </Typography>
+
                     </CardContent>
 
                     <Typography className={classes.productPrice} variant="body2" color="textSecondary" component="p">

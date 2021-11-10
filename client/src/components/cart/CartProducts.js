@@ -39,15 +39,16 @@ export default function CartProducts(props) {
             marginRight: '5vw'
         }
     });
+    const classes = useStyles();
     const [sumDiscount, setSumDiscount] = useState(0)
     useEffect(() => {
         getUserProductsList().then(res => {
             setProducts(res)
-            getPayment().then(res => { setPrice(res[0]); setSumDiscount(res[1]) })
+            getPayment(res).then(res => { setPrice(res[0]); setSumDiscount(res[1])})
         })
     }, [props.reload])
 
-    const classes = useStyles();
+
 
     const remove = (id) => {
         deleteProduct(
@@ -59,35 +60,36 @@ export default function CartProducts(props) {
 
     }
 
-
-    console.log(products.length)
     return (
 
         <div className="cart" >
 
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
-                    {products.length ? <TableHead>
+                    {price > 0 && <TableHead>
                         <TableRow>
                             <TableCell align="right">שם המוצר</TableCell>
                             <TableCell align="right">תיאור</TableCell>
                             <TableCell align="right" >מחיר</TableCell>
                             <TableCell align="right" >תמונה</TableCell>
                         </TableRow>
-                    </TableHead> : <p>העגלה שלך ריקה</p>}
+                    </TableHead> }
+                    {price == 0 && <TableRow> העגלה שלך ריקה</TableRow>
+                }
                     <TableBody>
                         {products && products.map((product) => (
-                            <TableRow key={product.name}>
+                            
+                            <TableRow key={"product"}>
                                 <TableCell align="right" component="th" scope="row">
-                                    {product.name}
+                                    {{...product}["name"]}
                                 </TableCell>
                                 <TableCell align="right" component="th" scope="row">
-                                    {product.description}
+                                    {{...product}["description"]}
                                 </TableCell>
-                                <TableCell align="right" >₪{Math.round((parseFloat(product.price) - parseFloat(product.sale) * parseFloat(product.price) / 100) * 10) / 10}</TableCell>
-                                <TableCell align="right" ><img className={classes.image} src={product.picture} /></TableCell>
+                                <TableCell align="right" >₪{Math.round((parseFloat({...product}["price"]) - parseFloat({...product}["sale"]) * parseFloat({...product}["price"]) / 100) * 10) / 10}</TableCell>
+                                <TableCell align="right" ><img className={classes.image} src={{...product}["picture"]} /></TableCell>
                                 <TableCell>
-                                    {product.sale !== "0" &&
+                                    {{...product}["sale"] !== "0" &&
                                         <Fab className={classes.saleButton} color="primary" aria-label="add" style={{ backgroundColor: props.color }}>
 
                                             במבצע
@@ -96,7 +98,7 @@ export default function CartProducts(props) {
 
                                 </TableCell>
                                 <TableCell>
-                                    <Button disabled={false} className={classes.button} onClick={() => remove(product._id)}>
+                                    <Button disabled={false} className={classes.button} onClick={() => remove({...product}["_id"])}>
                                         <Clear />
                                     </Button>
                                 </TableCell>
@@ -110,8 +112,8 @@ export default function CartProducts(props) {
 
             {/* {products && <Link onClick={() => { deleteCart().then(() => props.setReload()) }}><Button><DeleteRounded />לרוקן את העגלה</Button></Link>} */}
             {/* {products && <><BottomNavigationAction label="אני רוצה לרוקן את העגלה" showLabel icon={<DeleteRounded />} onClick={() => { deleteCart().then(() => props.setReload()) }}></BottomNavigation></>} */}
-            {products && <>
-                <Button  className={classes.deleteButton} onClick={() => { deleteCart().then(() => props.setReload()) }}>
+            {price > 0 && <>
+                <Button  className={classes.deleteButton} onClick={() => {deleteCart().then(() => props.setReload()) }}>
                             <DeleteRounded /> לרוקן את העגלה
                         </Button>
             </>}
@@ -129,7 +131,7 @@ export default function CartProducts(props) {
                         <FormControl label="רחוב" ></FormControl>
                     </FormControl>}
                     {
-                        value == "50" && <p className="deliver">משלוח: {value} ₪</p>
+                        value == "50" && price > 0 && <p className="deliver">משלוח: {value} ₪</p>
                     }
                     {price > 0 && <p className="pay">לתשלום: {value == "0" ? price : (parseFloat(price, 10) + 50)} ₪</p>}
                     {/* {value == "50" && <div><p >משלוח: {value} ₪</p>
@@ -137,7 +139,7 @@ export default function CartProducts(props) {
                     {price > 0 && <div>
                         <p className="discount">בקנייה זו חסכת:  {sumDiscount} ₪</p>
                         <p><small>*לאחר התשלום ניצור איתך קשר בטלפון לגבי כתובת ומועד הזמנה*</small></p>
-                        <Paypal total={price} history={props.history}/>
+                        <Paypal total={price} history={props.history} reload={props.reload} setReload={props.setReload}/>
                     </div>}
 
                 </div>

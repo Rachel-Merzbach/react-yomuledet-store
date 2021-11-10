@@ -11,6 +11,7 @@ module.exports = function (app) {
   });
 
   app.get("/api/product/all", controller.findAll);
+  app.post("/api/product/allids", controller.findByIds);
   app.post("/api/product/create", controller.create);
   app.get("/api/product/find", controller.findOne);
   app.put("/api/product/update", controller.update);

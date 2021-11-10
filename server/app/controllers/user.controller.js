@@ -1,7 +1,17 @@
 const db = require("../models");
 var bcrypt = require("bcryptjs");
-
 const User = db.User;
+
+
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'yomuledet4us@gmail.com',
+    pass: 'yomuledet7923'
+}
+});
 
 
 
@@ -27,6 +37,46 @@ exports.create = (req, res) => {
   user.save()
     .then(data => {
       res.send({_id: data._id});
+      
+      //send an email after successful sign-up
+      var mailOptions = {
+        from: "yomuledet4us@gmail.com",
+        to: req.body.email,
+        subject: 'יומולדת - לאירועים ברמה! 🎈🎈',
+        attachments: [{ filename: "logo.png", path: "./app/controllers/logo192.png", cid:'logo' }, { filename: "border.png", path: "./app/controllers/border.png", cid:'border'}],
+        html: `<!doctype html>
+        <html ⚡4email>
+          <head>
+            <meta charset="utf-8">
+          </head>
+          <body>
+          <div style="background-color: #dadbdc; width: 500px; dir: 'rtl'; text-align: center; font-family: 'Abir Regular'; margin-right: 25%; margin-left: 5%;">
+<p>&nbsp;</p>
+<h2>היי ${req.body.name},</h2>
+<h3>אנחנו שמחים שאתה פה איתנו! 😀</h3>
+<p><strong>אצלנו ב</strong><img style="height: 6vh;" src="cid:logo" /><br />תוכלו להנות ממגוון אטרקציות ופעילויות<br />שנועדו במיוחד עבור מסיבת יומולדת נהדרת עבור הילדים שלכם!<br />כאן תוכלו לקבל עד אליכם הביתה אביזרים ואטרקציות<br />שיהפכו את חגיגת היומולדת שלכם<br />לוואו אמיתי</p>
+<p>&nbsp;</p>
+<p><img src="cid:logo" height="70" /></p>
+<p><span style="color: #0000ff;">יומולדת - לאירועים ברמה!</span></p>
+<p>&nbsp;</p>
+<div class="footer" style="font-size: smaller; background-color: #ffffff;"><img class="myBorder" src="cid:border" width="500px" height="12" />
+<h3>יצירת קשר:</h3>
+<p><strong>כתובת מחסן לוגיסטי (לאיסוף הזמנות): </strong><a style="color: black; font-weight: bold;" href="https://www.google.com/maps/place/%D7%94%D7%A1%D7%93%D7%A0%D7%94+86,+%D7%90%D7%95%D7%A8+%D7%99%D7%94%D7%95%D7%93%D7%94%E2%80%AD/@32.0341334,34.8552896,17z/data=!4m5!3m4!1s0x151d4a9741718be1:0x9d952b70643d3ec5!8m2!3d32.0339424!4d34.850526" target="_blank ">הסדנה 86, אור יהודה</a></p>
+<p><strong>טלפון: </strong><a style="color: black;" href="tel://0525378635" target="_blank ">0525378635</a></p>
+<p><strong>אימייל:  </strong><a style="color: black; font-weight: bold;" href="https://mail.google.com/mail/u/0/?fs=1&amp;tf=cm&amp;to=yomuledet4us@gmail.com#inbox" target="_blank ">yomuledet4us@gmail </a> </p>
+</div>
+</div>
+          </body>
+        </html>`
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      })
     }).catch(err => {
       res.status(500).send({
           message: err.message || "Some error occurred while creating the city."

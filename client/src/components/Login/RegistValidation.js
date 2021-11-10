@@ -125,10 +125,13 @@ export default function Validation(props, handleSubmit) {
                         email: contactValues.email,
                         password: contactValues.password,
                         isManager: false
-                    }).then(res => {localStorage.setItem("userId", res._id)})
+                    }).then(res => {
+                        localStorage.setItem("userId", res._id)
+                        props.setReload()
+                        handleSubmit()
+                    })
 
-                    props.setReload()
-                    handleSubmit()
+
                 }
 
             }

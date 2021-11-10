@@ -42,7 +42,7 @@ const updateState = (event) => {
 
 
 const priceValidate = (price) => {
-    if (price.length < 0 || price.length > 6) {
+    if (price.length < 0 || price.length > 6 || price[0] == "-") {
 
         return false;
     }
@@ -74,7 +74,7 @@ const addProduct = () => {
         if (!(form(errorValues))) {
             event.preventDefault();
             setStatusValues({
-                message: "ההוספה נכשלה"
+                message: "הפרטים אינם תואמים לנדרש"
             })  
         }
         else {
@@ -95,7 +95,7 @@ const addProduct = () => {
         }
         for (const value of Object.values(errorValues)) {
             if (value !== "" && value !== " ") {
-                alert("false2")
+                // alert("false2")
                 return false;
             }
         }
@@ -108,7 +108,6 @@ const addProduct = () => {
         updateState(event);
 
         if (event.target.value === "") {
-            console.log(event.target.name)
             setErrorValues({
                 ...errorValues,
                 [`${event.target.name}Error`]: "הינך חייב למלא שדה זה"

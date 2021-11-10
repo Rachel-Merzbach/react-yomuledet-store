@@ -43,6 +43,7 @@ exports.findAll = (req, res) => {
         });
 };
 
+
 //return order details by id
 exports.findOne = (req, res) => {
     Order.findOne({userId: req.query.userId, productId: req.query.productId})
@@ -98,7 +99,7 @@ exports.update = (req, res) => {
 
 //delete order by id
 exports.delete = (req, res) => {
-    console.log(req.body._id);
+    // console.log(req.body._id);
     Order.findByIdAndRemove(req.query._id)
     .then(note => {
         if (!note) {
