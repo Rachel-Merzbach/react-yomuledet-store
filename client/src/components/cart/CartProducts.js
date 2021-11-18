@@ -110,8 +110,6 @@ export default function CartProducts(props) {
             </TableContainer>
 
 
-            {/* {products && <Link onClick={() => { deleteCart().then(() => props.setReload()) }}><Button><DeleteRounded />לרוקן את העגלה</Button></Link>} */}
-            {/* {products && <><BottomNavigationAction label="אני רוצה לרוקן את העגלה" showLabel icon={<DeleteRounded />} onClick={() => { deleteCart().then(() => props.setReload()) }}></BottomNavigation></>} */}
             {price > 0 && <>
                 <Button  className={classes.deleteButton} onClick={() => {deleteCart().then(() => props.setReload()) }}>
                             <DeleteRounded /> לרוקן את העגלה
@@ -134,8 +132,7 @@ export default function CartProducts(props) {
                         value == "50" && price > 0 && <p className="deliver">משלוח: {value} ₪</p>
                     }
                     {price > 0 && <p className="pay">לתשלום: {value == "0" ? price : (parseFloat(price, 10) + 50)} ₪</p>}
-                    {/* {value == "50" && <div><p >משלוח: {value} ₪</p>
-                        <p >בסך הכל: {price + parseFloat(value, 10)} ₪</p></div>} */}
+
                     {price > 0 && <div>
                         <p className="discount">בקנייה זו חסכת:  {sumDiscount} ₪</p>
                         <p><small>*לאחר התשלום ניצור איתך קשר בטלפון לגבי כתובת ומועד הזמנה*</small></p>

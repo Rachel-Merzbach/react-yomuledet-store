@@ -11,12 +11,9 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
 app.use(bodyParser.json({limit: '10mb'}));
 
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.json({limit: '50mb'}));
 
 const db = require("./app/models");
 
@@ -39,12 +36,10 @@ app.get("/", (req, res) => {
 });
 
 // routes
-require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/order.routes")(app);
 require("./app/routes/product.routes")(app);
 
-// set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

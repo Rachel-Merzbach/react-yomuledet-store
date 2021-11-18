@@ -11,6 +11,7 @@ export function getUsers () {
 
 }
 
+
 export function isEmailExist (currentEmail) {
     return getUsers()
     .then(res => {
@@ -24,10 +25,6 @@ export function userPassword (currentEmail, userEmail) {
 }
 
 
-
-
-
-
 export function addUser(newUser) {
     return fetch(`${USERS_URL}/create`, {
         headers: API_HEADERS,
@@ -37,18 +34,18 @@ export function addUser(newUser) {
 }
 
 
-
-
 export function getUserDetails(){
     return fetch(`${USERS_URL}/find?id=${localStorage.getItem("userId")}`)
     .then(res =>  res.json())
     .then(res => res);
 }
 
+
 export function isManager () {
     return getUserDetails()
     .then(res => res.isManager == true)
 }
+
 
 export function updateUser (newUser) {
     return fetch(`${USERS_URL}/update?id=${localStorage.getItem("userId")}`, {

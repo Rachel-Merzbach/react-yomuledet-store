@@ -57,8 +57,6 @@ export function isProductExist(productId) {
 }
 
 
-
-
 export async function getPayment(itemsUser) {
     const API_USER = "http://localhost:8080/api/product";
     let discount = 0;
@@ -74,7 +72,6 @@ export async function getPayment(itemsUser) {
 }
 
 
-
 export  function deleteCart() {
     const userId = localStorage.getItem("userId")
     return getUserProductsList()
@@ -82,7 +79,6 @@ export  function deleteCart() {
         if(res.length) {
             console.log(res[0])
         }
-        // if(!(res.length)) {return {}}
         for(let i = 0; i < res.length; i++) {
             console.log(res[i])
             const p = res[i];

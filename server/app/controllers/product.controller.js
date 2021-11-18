@@ -43,7 +43,7 @@ exports.findAll = (req, res) => {
         });
 };
 
-//return the whole products in db
+//return the whole products in db that their ids exists in request
 exports.findByIds = (req, res) => {
     console.log(req.body.ids)
     Product.find({_id: req.body.ids})

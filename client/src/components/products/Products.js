@@ -22,7 +22,6 @@ export default (props) => {
             setProducts(res)
             if(!res[0]) {
                 insertAllProductsToDB()
-                // props.setReload()
             }
         })
     }, [props.reload])

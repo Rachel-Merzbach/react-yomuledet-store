@@ -1,5 +1,4 @@
 const controller = require("../controllers/order.controller");
-const { authJwt } = require("../middlewares");
 
 
 module.exports = function (app) {
