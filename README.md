@@ -1,33 +1,39 @@
 # react-yomuledet-store
-store for birthday products, with a manager interface
+A store for birthday products with a manager interface.
 
+## About the Project
+This is a website for selling products and accessories for birthdays. It includes a shopping cart system, user authentication, and an admin panel for managing products and discounts.
 
-## about my project
-Website for selling products and accessories for birthdays
+## Login & Registration
+- Users can register only as regular users, not as administrators.
+- A predefined administrator account is available:
+  - **Email:** manager@gmail.com
+  - **Password:** Manager1121
+- Users can log in or register but cannot register twice with the same email address.
 
-## login & registration
-A user can register for the site only as a regular user, and not as an administrator.
-I created a user who is the administrator.
-His details are: `email: manager@gmail.com, password: Manager1121`
-The user has the option to log in or register, but can not register twice with the same email address.
+## Guest User
+- A guest (unregistered user) can browse the products but **cannot** add products to the cart.
 
-## an unregistered user
-An unregistered user can see the products in the site but `cannot` add products to a cart.
+## Registered User Features
+- Update personal details
+- Add products to the cart
+- Log out
 
-## regular loged-in user's options
-A regular user can change his self details, add products to cart and log out from the site
+## Manager Features
+- Add/remove products from the catalog
+- Add/remove discounts for products
+- Log out
 
-## manager's options
-The manager can add / remove products from the catalog, add / remove discount for each product and log out from the site
+## Shopping Cart
+- Users can remove individual products from the cart or clear the entire cart.
+- After a successful PayPal payment, the cart is automatically cleared.
 
-## cart
-The user can remove products from the cart one-by-one or remove the whole product together.
-when Paypal success - the cart is removed
+## Home Page Features
+- A link to the store's location on **Google Maps**
+- A phone contact link via **Skype**
+- An option to send an email using **Gmail**
 
-## home page
-in the home page the user can get link to the address in `Google-Maps`, phone in `Skype` and send an e-mail using `Gmail`
-
-## pictures, fonts & payment
-the pictures are token from 'https://www.freepik.com/'
-the font was token from 'https://fonts.google.com/specimen/Varela+Round'
-I used 'https://paypal.com' to have a secure payment gateway
+## Resources Used
+- **Images:** Sourced from [Freepik](https://www.freepik.com/)
+- **Font:** [Varela Round](https://fonts.google.com/specimen/Varela+Round)
+- **Payment Gateway:** [PayPal](https://paypal.com) for secure transactions
